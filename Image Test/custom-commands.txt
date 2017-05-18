@@ -1,0 +1,27 @@
+YValue * math.sin(scale(0,canvas_width,0,18,x))
+255 * math.sin(math.radians(scale(0,canvas_width,90,180, x)))
+255 * math.sin(math.radians(scale(0,canvas_height,0,180, y)))
+255 * math.sin(math.radians(scale(0,255,0,180,progress)))
+
+YValue * funct_if(x < 1000, math.sin(math.radians(scale(0,1000,90,180, x))), funct_if(x > 2000,math.sin(math.radians(scale(2000,3000,0,90, x))), 0))
+YValue * funct_if(x < 2000, math.sin(math.radians(scale(0,2000,0,180, x))), 0)
+YValue * funct_if(x > 1000, math.sin(math.radians(scale(1000,3000,0,180, x))), 0)
+
+YValue * funct_if(x < (canvas_width / 3), math.sin(math.radians(scale(0,(canvas_width / 3),90,180, x))), funct_if(x > (canvas_width / 3) * 2,math.sin(math.radians(scale((canvas_width / 3) * 2,canvas_width,0,90, x))), 0))
+YValue * funct_if(x < (canvas_width / 3) * 2, math.sin(math.radians(scale(0,(canvas_width / 3) * 2,0,180, x))), 0)
+YValue * funct_if(x > (canvas_width / 3), math.sin(math.radians(scale((canvas_width / 3),canvas_width,0,180, x))), 0)
+
+
+255 - YValue * funct_if(x < (canvas_width / 3), math.sin(math.radians(scale(0,(canvas_width / 3),90,180, x))), funct_if(x > (canvas_width / 3) * 2,math.sin(math.radians(scale((canvas_width / 3) * 2,canvas_width,0,90, x))), 0))
+255 - YValue * funct_if(x < (canvas_width / 3) * 2, math.sin(math.radians(scale(0,(canvas_width / 3) * 2,0,180, x))), 0)
+255 - YValue * funct_if(x > (canvas_width / 3), math.sin(math.radians(scale((canvas_width / 3),canvas_width,0,180, x))), 0)
+
+YValue * math.sin(math.radians(scale(0,3000,0,180,x)))
+
+draw_funct("math.pow(dx, 2)", -500, 500, -500, 500, 10)
+
+draw_funct("math.pow(dx, 2)", -2500, 2500, -2500, 2500, 10)
+
+YValue * funct_if(x < 456, math.sin(math.radians(scale(0,456,90,180, x))), funct_if(x > 911,math.sin(math.radians(scale(911,1366,0,90, x))), 0))
+YValue * funct_if(x < 911, math.sin(math.radians(scale(0,911,0,180, x))), 0)
+YValue * funct_if(x > 456, math.sin(math.radians(scale(456,1366,0,180, x))), 0)

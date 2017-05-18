@@ -1,0 +1,8 @@
+tf = open("cn.txt","r")
+a = tf.read()
+tf.close()
+b = fromshift(a,13)
+otf = open("on.txt","w")
+otf.write(b)
+otf.close()
+output("Complete.")

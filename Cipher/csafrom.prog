@@ -1,0 +1,3 @@
+a = getinput()
+b = fromshiftascii(a,5)
+output(b)

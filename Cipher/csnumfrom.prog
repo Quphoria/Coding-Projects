@@ -1,0 +1,3 @@
+a = getinput()
+b = fromshift(a,"charnum*charnum")
+output(b)

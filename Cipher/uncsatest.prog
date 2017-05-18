@@ -1,0 +1,8 @@
+tf = open("un.txt","r")
+a = tf.read()
+tf.close()
+b = toshiftascii(a,17)
+otf = open("cna.txt","w")
+otf.write(b)
+otf.close()
+output("Complete.")

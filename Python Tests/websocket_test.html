@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+   <meta charset = "utf-8" />
+   <title>WebSocket Test</title>
+
+   <script language = "javascript" type = "text/javascript">
+      var wsUri = "ws://localhost:9009/";
+      var output;
+
+      function init() {
+         output = document.getElementById("output");
+         testWebSocket();
+      }
+
+      function testWebSocket() {
+         websocket = new WebSocket(wsUri);
+
+         websocket.onopen = function(evt) {
+            onOpen(evt)
+         };
+
+         websocket.onmessage = function(evt) {
+            onMessage(evt)
+         };
+
+         websocket.onerror = function(evt) {
+            onError(evt)
+            console.log ("ERROR")
+         };
+      }
+
+      function onOpen(evt) {
+         writeToScreen("CONNECTED");
+         doSend("WebSocket rocks!");
+      }
+
+      function onMessage(evt) {
+         var reader = new FileReader();
+         reader.onload = function(){
+           var indata = reader.result;
+           writeToScreen('<span style = "color: blue;">RESPONSE: ' + indata +'</span>');
+           websocket.close();
+         }
+         reader.readAsText(evt.data)
+      }
+
+      function onError(evt) {
+         writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+      }
+
+      function doSend(message) {
+         writeToScreen("SENT: " + message); websocket.send(message);
+      }
+
+      function writeToScreen(message) {
+         var pre = document.createElement("p");
+         pre.style.wordWrap = "break-word";
+         pre.innerHTML = message; output.appendChild(pre);
+      }
+
+      window.addEventListener("load", init, false);
+
+   </script>
+
+   <h2>WebSocket Test</h2>
+   <div id = "output"></div>
+
+</html>

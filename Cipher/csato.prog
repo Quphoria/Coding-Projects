@@ -1,0 +1,3 @@
+a = getinput()
+b = toshiftascii(a,5)
+output(b)

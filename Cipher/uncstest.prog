@@ -1,0 +1,8 @@
+tf = open("un.txt","r")
+a = tf.read()
+tf.close()
+b = toshift(a,13)
+otf = open("cn.txt","w")
+otf.write(b)
+otf.close()
+output("Complete.")

@@ -1,0 +1,3 @@
+a = getinput()
+b = torail(a)
+output(b)

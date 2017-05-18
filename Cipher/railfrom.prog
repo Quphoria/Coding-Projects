@@ -1,0 +1,4 @@
+a = getinput()
+b = getinput()
+c = fromrail(a,b)
+output(c)

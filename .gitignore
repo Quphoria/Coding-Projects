@@ -1,0 +1,9 @@
+chatserver_v1/logs/*
+chatserver_v2/logs/*
+chatserver_vs/dist/logs/*
+chatserver_v1/admins.json
+chatserver_v2/admins.json
+chatserver_v2/dist/admins.json
+PythonJS-master/*
+*.db
+Private/*
