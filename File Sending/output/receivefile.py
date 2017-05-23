@@ -1,5 +1,6 @@
 import socket,sys,os,hashlib,codecs             # Import socket module
 filecodec = 'cp037'
+buffersize = 4096
 
 def filehash(filepath):
     openedFile = codecs.open(filepath,'rb',filecodec)
@@ -35,9 +36,9 @@ while True:
         gotfname = False
         tries = 0
         while not gotfname:
-            fnamehash = c.recv(4096).decode()
+            fnamehash = c.recv(buffersize).decode()
             c.send("Next".encode())
-            fname = c.recv(4096).decode()
+            fname = c.recv(buffersize).decode()
             tmphash = namehash(fname)
             tries = tries + 1
             if tmphash == fnamehash:
@@ -53,7 +54,7 @@ while True:
                 print("INVALID FILENAME")
                 c.send("N".encode())
 
-        umoded = c.recv(4096).decode()
+        umoded = c.recv(buffersize).decode()
         if umoded == "y":
             umode = True
         else:
@@ -66,9 +67,9 @@ while True:
                 os.remove(fname + ".tmp")
             except:
                 pass
-            flen = int(c.recv(4096).decode())
+            flen = int(c.recv(buffersize).decode())
             c.send("Continue".encode())
-            fhash = c.recv(4096).decode()
+            fhash = c.recv(buffersize).decode()
             f = codecs.open(fname + ".tmp",'wb',filecodec)
             c.send("Ready.".encode())
             print("Recieving file: " + fname)
@@ -76,7 +77,7 @@ while True:
             flenc = 0
             while flenc < flen:
                 print("Receiving Chunk " + str(flenc + 1) + "...")
-                l = c.recv(4096).decode(filecodec)
+                l = c.recv(buffersize).decode(filecodec)
                 if (l):
                     f.write(l)
                 flenc = flenc + 1
@@ -116,4 +117,12 @@ while True:
             os.system(fname)
             sys.exit()
     except Exception as ex:
+        try:
+            f.close()
+        except:
+            pass
+        try:
+            os.remove(fname + ".tmp")
+        except:
+            pass
         print("An error occured: " + str(ex))

@@ -1,5 +1,6 @@
 import socket,hashlib,codecs               # Import socket module
 filecodec = 'cp037'
+buffersize = 4096
 
 s = socket.socket()         # Create a socket object
 host = socket.gethostname() # Get local machine name
@@ -59,9 +60,9 @@ try:
     tries = 0
     while not sentfname:
         s.send(fnhash.encode())
-        s.recv(4096)
+        s.recv(buffersize)
         s.send(sfile.encode())
-        reply = s.recv(4096).decode()
+        reply = s.recv(buffersize).decode()
         if reply == "Y":
             sentfname = True
         else:
@@ -70,40 +71,40 @@ try:
                 raise Exception("Error sending filename.")
 
     s.send(isupdate.encode())
-    s.recv(4096)
+    s.recv(buffersize)
     sentfile = False
     tries = 0
     while not sentfile:
         f = codecs.open("input/" + sfile,'rb',filecodec)
         flen = 0
-        l = f.read(4096)
+        l = f.read(buffersize)
         while (l):
-            l = f.read(4096)
+            l = f.read(buffersize)
             flen = flen + 1
         print(str(flen) + " Chunk(s) Detected")
         f.close()
         s.send(str(flen).encode())
-        s.recv(4096)
+        s.recv(buffersize)
         f = codecs.open("input/" + sfile,'rb',filecodec)
         s.send(fhash.encode())
-        print(s.recv(4096).decode())
+        print(s.recv(buffersize).decode())
         cnum = 0
-        l = f.read(4096)
+        l = f.read(buffersize)
         while (l):
             cnum = cnum + 1
             print('Sending Chunk ' + str(cnum) + '...')
             s.send(l.encode(filecodec))
-            l = f.read(4096)
+            l = f.read(buffersize)
         f.close()
         #s.shutdown(socket.SHUT_WR)
         print ("Done Sending")
-        result = s.recv(4096).decode()
+        result = s.recv(buffersize).decode()
         tries = tries + 1
         if result == "Y":
             sentfile = True
         elif tries >= 5:
                 raise Exception("Error sending file.")
-    print(s.recv(4096).decode())
+    print(s.recv(buffersize).decode())
     s.close()                     # Close the socket when done
 except Exception as ex:
     try:
