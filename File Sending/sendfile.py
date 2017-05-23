@@ -1,13 +1,14 @@
-import socket,hashlib               # Import socket module
+import socket,hashlib,codecs               # Import socket module
+filecodec = 'cp037'
 
 s = socket.socket()         # Create a socket object
 host = socket.gethostname() # Get local machine name
 port = 12345                 # Reserve a port for your service.
 
 def filehash(filepath):
-    openedFile = open(filepath)
+    openedFile = codecs.open(filepath,'rb',filecodec)
     readFile = openedFile.read().encode()
-
+    openedFile.close()
     sha1Hash = hashlib.sha1(readFile)
     sha1Hashed = sha1Hash.hexdigest()
     return sha1Hashed
@@ -22,7 +23,7 @@ try:
         try:
             print()
             sfile = input("File: ")
-            f = open("input/" + sfile,'rb')
+            f = codecs.open("input/" + sfile,'rb',filecodec)
             f.close()
             fnhash = namehash(sfile)
             fhash = filehash("input/" + sfile)
@@ -73,7 +74,7 @@ try:
     sentfile = False
     tries = 0
     while not sentfile:
-        f = open("input/" + sfile,'rb')
+        f = codecs.open("input/" + sfile,'rb',filecodec)
         flen = 0
         l = f.read(4096)
         while (l):
@@ -83,14 +84,15 @@ try:
         f.close()
         s.send(str(flen).encode())
         s.recv(4096)
-        f = open("input/" + sfile,'rb')
+        f = codecs.open("input/" + sfile,'rb',filecodec)
         s.send(fhash.encode())
         print(s.recv(4096).decode())
-        print('Sending...')
+        cnum = 0
         l = f.read(4096)
         while (l):
-            print('Sending...')
-            s.send(l)
+            cnum = cnum + 1
+            print('Sending Chunk ' + str(cnum) + '...')
+            s.send(l.encode(filecodec))
             l = f.read(4096)
         f.close()
         #s.shutdown(socket.SHUT_WR)
@@ -104,4 +106,8 @@ try:
     print(s.recv(4096).decode())
     s.close()                     # Close the socket when done
 except Exception as ex:
+    try:
+        s.close()
+    except:
+        pass
     print("An error occured: " + str(ex))

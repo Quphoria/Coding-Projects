@@ -1,9 +1,10 @@
-import socket,sys,os,hashlib             # Import socket module
+import socket,sys,os,hashlib,codecs             # Import socket module
+filecodec = 'cp037'
 
 def filehash(filepath):
-    openedFile = open(filepath)
+    openedFile = codecs.open(filepath,'rb',filecodec)
     readFile = openedFile.read().encode()
-
+    openedFile.close()
     sha1Hash = hashlib.sha1(readFile)
     sha1Hashed = sha1Hash.hexdigest()
     return sha1Hashed
@@ -68,14 +69,14 @@ while True:
             flen = int(c.recv(4096).decode())
             c.send("Continue".encode())
             fhash = c.recv(4096).decode()
-            f = open(fname + ".tmp",'wb')
+            f = codecs.open(fname + ".tmp",'wb',filecodec)
             c.send("Ready.".encode())
             print("Recieving file: " + fname)
             print("File Length: " + str(flen) + " Chunk(s)")
             flenc = 0
             while flenc < flen:
                 print("Receiving Chunk " + str(flenc + 1) + "...")
-                l = c.recv(4096)
+                l = c.recv(4096).decode(filecodec)
                 if (l):
                     f.write(l)
                 flenc = flenc + 1
