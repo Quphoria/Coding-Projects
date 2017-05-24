@@ -1,6 +1,7 @@
 import socket,sys,os,hashlib,codecs,time             # Import socket module
 filecodec = 'cp037'
 buffersize = 4096
+failed = False
 
 def filehash(filepath):
     openedFile = codecs.open(filepath,'rb',filecodec)
@@ -41,14 +42,16 @@ try:
         if tmphash == fnamehash:
             c.send("Y".encode())
             gotfname = True
-            print("VALID FILENAME")
+            print("Filename Valid")
         elif tries >= 5:
-            print("INVALID FILENAME")
+            print("Filename Invalid")
             c.send("N".encode())
             print("An error occured when receiving the filename")
             c.close()
         else:
-            print("INVALID FILENAME")
+            print("Filename Invalid")
+            print("Attempting to get the filename again ...")
+            print()
             c.send("N".encode())
 
     umoded = c.recv(buffersize).decode()
@@ -56,64 +59,98 @@ try:
         umode = True
     else:
         umode = False
-    c.send("Begin".encode())
-    gotfile = False
-    tries = 0
-    while not gotfile:
-        try:
-            os.remove(fname + ".tmp")
-        except:
-            pass
-        flen = int(c.recv(buffersize).decode())
-        c.send("Continue".encode())
-        fhash = c.recv(buffersize).decode()
-        f = codecs.open(fname + ".tmp",'wb',filecodec)
-        c.send("Ready.".encode())
-        print("Recieving file: " + fname)
-        print("File Length: " + str(flen) + " Chunk(s)")
-        flenc = 0
-        print()
-        while flenc < flen:
-            sys.stdout.write("\rReceiving Chunk " + str(flenc + 1) + "...")
-            l = c.recv(buffersize).decode(filecodec)
-            if (l):
-                f.write(l)
-            flenc = flenc + 1
-        f.close()
-        print("Done Receiving")
-        ofhash = filehash(fname + ".tmp")
-        tries = tries + 1
-        if ofhash == fhash:
-            print("VALID FILE")
-            c.send("Y".encode())
-            gotfile = True
-        elif tries >= 5:
-            print("INVALID FILE")
-            c.send("N".encode())
-            print("An error occured when receiving the file")
-            c.close()
-        else:
-            print("INVALID FILE")
-            c.send("N".encode())
-
-    print("Saving File...")
-    if umode:
-        try:
-            os.remove(__file__)
-        except:
-            pass
+    c.send("Start".encode())
+    exist = False
+    gothash = False
+    while not gothash:
+        cfhash = c.recv(buffersize).decode()
+        c.send(cfhash.encode())
+        returndata = c.recv(buffersize).decode()
+        if returndata == "y":
+            gothash = True
     try:
-        os.remove(fname)
+        if cfhash == filehash(fname):
+            exist = True
     except:
         pass
-    os.rename(fname + ".tmp", fname)
-    print("Done Saving")
-    print(c.recv(buffersize).decode())
-    c.close()
-    if umode:
-        s.close()
-        os.system(fname)
-        sys.exit()
+    if not exist:
+        c.send("n".encode())
+        print("File not found or out of date, downloading new version...")
+        gotfile = False
+        tries = 0
+        while not (gotfile or failed):
+            try:
+                try:
+                    os.remove(fname + ".tmp")
+                except:
+                    pass
+                flen = int(c.recv(buffersize).decode())
+                c.send("Continue".encode())
+                fhash = c.recv(buffersize).decode()
+                f = codecs.open(fname + ".tmp",'wb',filecodec)
+                c.send("Ready.".encode())
+                print("Receiving file: " + fname)
+                print("File Length: " + str(flen) + " Chunk(s)")
+                flenc = 0
+                print()
+                while flenc < flen:
+                    sys.stdout.write("\rReceiving Chunk " + str(flenc + 1) + "...")
+                    l = c.recv(buffersize).decode(filecodec)
+                    if (l):
+                        f.write(l)
+                    flenc = flenc + 1
+                f.close()
+                print("Done Receiving")
+                ofhash = filehash(fname + ".tmp")
+                tries = tries + 1
+                if ofhash == fhash:
+                    print("File Valid")
+                    c.send("Y".encode())
+                    gotfile = True
+                elif tries >= 5:
+                    print("File Invalid")
+                    c.send("N".encode())
+                    print("An error occured when receiving the file")
+                    failed = True
+                    c.close()
+                else:
+                    print("File Invalid")
+                    print("Attempting to restart the download...")
+                    print()
+                    c.send("N".encode())
+            except Exception as ex:
+                try:
+                    f.close()
+                except:
+                    pass
+                try:
+                    c.send("N".encode())
+                except:
+                    pass
+                    print("An error occured when receiving the file: " + str(ex))
+        if not failed:
+            print("Saving File...")
+            if umode:
+                try:
+                    os.remove(__file__)
+                except:
+                    pass
+            try:
+                os.remove(fname)
+            except:
+                pass
+            os.rename(fname + ".tmp", fname)
+            print("Done Saving")
+    else:
+        c.send("y".encode())
+        print("File already exists and is up to date")
+    if not failed:
+        print(c.recv(buffersize).decode())
+        c.close()
+        if umode:
+            s.close()
+            os.system(fname)
+            sys.exit()
 except Exception as ex:
     try:
         c.close()

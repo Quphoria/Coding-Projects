@@ -88,9 +88,21 @@ try:
 
             s.send(isupdate.encode())
             s.recv(buffersize)
+            gotrchash = False
+            while not gotrchash:
+                s.send(fhash.encode())
+                rchash = s.recv(buffersize).decode()
+                if rchash == fhash:
+                    s.send("y".encode())
+                    gotrchash = True
+                else:
+                    s.send("n".encode())
+
+
+            alreadygot = s.recv(buffersize).decode()
             sentfile = False
             tries = 0
-            while not sentfile:
+            while not (sentfile or alreadygot == "y") :
                 f = codecs.open("input/" + sfile,'rb',filecodec)
                 flen = 0
                 l = f.read(buffersize)
@@ -125,7 +137,7 @@ try:
             s.close()                     # Close the socket when done
         except Exception as ex:
             try:
-                so.close()
+                s.close()
             except:
                 pass
             print("An error occured: " + str(ex))
