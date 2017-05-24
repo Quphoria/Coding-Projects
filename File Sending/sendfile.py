@@ -1,4 +1,6 @@
-import socket,hashlib,codecs,sys,time               # Import socket module
+import socket,hashlib,codecs,sys,time,os               # Import socket module
+import tkinter as tk
+from tkinter import filedialog
 filecodec = 'cp037'
 buffersize = 4096
 
@@ -23,14 +25,18 @@ try:
     while not gotfile:
         try:
             print()
-            sfile = input("File: ")
-            f = codecs.open("input/" + sfile,'rb',filecodec)
+            #sfile = input("File: ")
+            root = tk.Tk()
+            root.withdraw()
+            sfile = filedialog.askopenfilename(initialdir=os.getcwd())
+            f = codecs.open(sfile,'rb',filecodec)
             f.close()
-            fnhash = namehash(sfile)
-            fhash = filehash("input/" + sfile)
+            fnhash = namehash(os.path.basename(sfile))
+            fhash = filehash(sfile)
             gotfile = True
         except Exception as ex:
             print("An error occured when opening the file: " + str(ex))
+    print("File: " + sfile)
 
     gotdata = False
     while not gotdata:
@@ -63,7 +69,7 @@ try:
 
 
     so.listen(5)                 # Now wait for client connection.
-    print("Vending " + sfile + " on port " + str(port) + "...")
+    print("Vending " + os.path.basename(sfile) + " on port " + str(port) + "...")
     while True:
         try:
             print()
@@ -77,7 +83,7 @@ try:
             while not sentfname:
                 s.send(fnhash.encode())
                 s.recv(buffersize)
-                s.send(sfile.encode())
+                s.send(os.path.basename(sfile).encode())
                 reply = s.recv(buffersize).decode()
                 if reply == "Y":
                     sentfname = True
@@ -103,7 +109,7 @@ try:
             sentfile = False
             tries = 0
             while not (sentfile or alreadygot == "y") :
-                f = codecs.open("input/" + sfile,'rb',filecodec)
+                f = codecs.open(sfile,'rb',filecodec)
                 flen = 0
                 l = f.read(buffersize)
                 while (l):
@@ -113,7 +119,7 @@ try:
                 f.close()
                 s.send(str(flen).encode())
                 s.recv(buffersize)
-                f = codecs.open("input/" + sfile,'rb',filecodec)
+                f = codecs.open(sfile,'rb',filecodec)
                 s.send(fhash.encode())
                 print(s.recv(buffersize).decode())
                 cnum = 0
