@@ -148,7 +148,6 @@ try:
         print(c.recv(buffersize).decode())
         c.close()
         if umode:
-            s.close()
             os.system(fname)
             sys.exit()
 except Exception as ex:
