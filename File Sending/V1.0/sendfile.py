@@ -1,8 +1,9 @@
 import socket,hashlib,codecs,sys,time,os               # Import socket module
 import tkinter as tk
 from tkinter import filedialog
-filecodec = 'cp037'
-buffersize = 4096
+#filecodec = 'cp037'
+filecodec = None
+buffersize = 1024
 
 so = socket.socket()         # Create a socket object
 host = socket.gethostname() # Get local machine name
@@ -10,7 +11,8 @@ port = 12345                 # Reserve a port for your service.
 
 def filehash(filepath):
     openedFile = codecs.open(filepath,'rb',filecodec)
-    readFile = openedFile.read().encode()
+    # readFile = openedFile.read().encode()
+    readFile = openedFile.read()
     openedFile.close()
     sha1Hash = hashlib.sha1(readFile)
     sha1Hashed = sha1Hash.hexdigest()
@@ -36,6 +38,8 @@ try:
             gotfile = True
         except Exception as ex:
             print("An error occured when opening the file: " + str(ex))
+            if sfile == "":
+                sys.exit()
     print("File: " + sfile)
 
     gotdata = False
@@ -128,7 +132,8 @@ try:
                 while (l):
                     cnum = cnum + 1
                     sys.stdout.write('\rSending Chunk ' + str(cnum) + '...')
-                    s.send(l.encode(filecodec))
+                    # s.send(l.encode(filecodec))
+                    s.send(l)
                     l = f.read(buffersize)
                 f.close()
                 #s.shutdown(socket.SHUT_WR)

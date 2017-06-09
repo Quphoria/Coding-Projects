@@ -1,17 +1,24 @@
 import socket,sys,os,hashlib,codecs,time             # Import socket module
-filecodec = 'cp037'
-buffersize = 4096
+#filecodec = 'cp037'
+filecodec = None
+buffersize = 1024
 failed = False
+
 
 def filehash(filepath):
     openedFile = codecs.open(filepath,'rb',filecodec)
-    readFile = openedFile.read().encode()
+    # readFile = openedFile.read().encode()
+    readFile = openedFile.read()
     openedFile.close()
     sha1Hash = hashlib.sha1(readFile)
     sha1Hashed = sha1Hash.hexdigest()
     return sha1Hashed
 def namehash(strtohash):
     sha1Hash = hashlib.sha1(strtohash.encode())
+    sha1Hashed = sha1Hash.hexdigest()
+    return sha1Hashed
+def chunkhash(chunktohash):
+    sha1Hash = hashlib.sha1(chunktohash)
     sha1Hashed = sha1Hash.hexdigest()
     return sha1Hashed
 
@@ -94,8 +101,26 @@ try:
                 flenc = 0
                 print()
                 while flenc < flen:
-                    sys.stdout.write("\rReceiving Chunk " + str(flenc + 1) + "...")
-                    l = c.recv(buffersize).decode(filecodec)
+                    gotchunk = False
+                    while not gotchunk:
+                        sys.stdout.write("\rReceiving Chunk " + str(flenc + 1) + "...")
+                        # l = c.recv(buffersize).decode(filecodec)
+                        l = c.recv(buffersize)
+                        lhash = chunkhash(l)
+                        c.send(lhash.encode())
+                        lvalid = c.recv(buffersize).decode()
+                        c.send("RD".encode())
+                        if lvalid == "y":
+                            gotchunk = True
+                        elif lvalid == "n":
+                            sys.stdout.write("\rFailed to recieve Chunk " + str(flenc + 1))
+                            print()
+                        else:
+                            sys.stdout.write("\r ")
+                            print()
+                            failed = True
+                            raise(Exception("Failed to recieve Chunk " + str(flenc + 1) ", please try again later."))
+
                     if (l):
                         f.write(l)
                     flenc = flenc + 1
