@@ -8,6 +8,8 @@ Many of my programs are no longer in development so the will most likely have a 
 
 If you find a bug in my programs please post an issue in the issue tracker and I will try and fix it.
 
+If you only want to download a specific folder from my repository I recommend DownGit (https://minhaskamal.github.io/DownGit/#/home).
+
 Note: Python programs are targeted at the latest version of python3.
 
 DISCLAMER: I accept no responsibility for any loss or damage caused by any of my programs,
