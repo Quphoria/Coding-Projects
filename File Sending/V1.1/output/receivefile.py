@@ -119,7 +119,7 @@ try:
                             sys.stdout.write("\r ")
                             print()
                             failed = True
-                            raise(Exception("Failed to recieve Chunk " + str(flenc + 1) ", please try again later."))
+                            raise(Exception("Failed to recieve Chunk " + str(flenc + 1) + ", please try again later."))
 
                     if (l):
                         f.write(l)

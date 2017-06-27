@@ -7,3 +7,5 @@ chatserver_v2/dist/admins.json
 PythonJS-master/*
 *.db
 Private/*
+chatserver_v3/*
+PiChat/*
