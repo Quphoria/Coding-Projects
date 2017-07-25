@@ -105,9 +105,9 @@ def ConvertToText(PILimage):
             pixeldata = PILimage.getpixel((xpixel,ypixel))
             # output += bytes(chr(pixeldata[0])) + ":".encode() + bytes(chr(pixeldata[1])) + ":".encode() + bytes(chr(pixeldata[2]))
             output += bytes([pixeldata[0]]) + ":".encode() + bytes([pixeldata[1]]) + ":".encode() + bytes([pixeldata[2]])
-            if xpixel + 2 < c_width:
+            if xpixel + 1 < c_width:
                 output += ";".encode()
-        if ypixel + 2 < c_height:
+        if ypixel + 1 < c_height:
             output += "!".encode()
     output += "&".encode()
     print("Conversion Completed Successfully!")
