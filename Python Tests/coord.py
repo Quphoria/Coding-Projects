@@ -16,7 +16,7 @@ while not gotrange:
         lrangeinput = input("Range: ")[:3]
         lrangein = str(lrangeinput).split('-')
         if len(lrangein) == 2:
-            lrange = range(fromalphabet[str(lrangein[0]).capitalize()],fromalphabet[str(lrangein[1]).capitalize()])
+            lrange = range(fromalphabet[str(lrangein[0]).capitalize()],fromalphabet[str(lrangein[1]).capitalize()]+1)
             if lrange[0] <= lrange[1]:
                 for i in lrange:
                     x.append(toalphabet[i])
@@ -32,7 +32,7 @@ while not gotrange:
         nrangeinput = input("Range: ")
         nrangein = str(nrangeinput).split('-',1)
         if len(nrangein) == 2:
-            nrange = range(int(nrangein[0]),int(nrangein[1]))
+            nrange = range(int(nrangein[0]),int(nrangein[1])+1)
             if nrange[0] <= nrange[1]:
                 for i in nrange:
                     y.append(i)
