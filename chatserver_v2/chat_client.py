@@ -112,14 +112,15 @@ class ChatWindow(Toplevel):
             if self.options["firsttime"].get():
                 self.options["firsttime"].set(False)
 
-                sf = LabelFrame(self, text = 'General', width = 180, height = 138)
+                sf = LabelFrame(self, text = 'General', width = 180, height = 130)
                 sf.grid(row = 0, column = 1)
                 sf.grid_propagate(0)
-                Label(sf, text = 'Chat Server: %s:%i' % (options['host'].get(), options['port'].get())).grid(row = 0, column = 1)
-                Label(sf, text = 'Nickname: %s' % (options['nickname'].get())).grid(row = 1, column = 1)
-                Label(sf , text = "").grid(row = 2, column = 1)
-                Label(sf , text = "Original Code").grid(row = 3, column = 1)
-                Label(sf , text = "By Samuel Simpson").grid(row = 4, column = 1)
+                #Label(sf, text = 'Chat Server: %s:%i' % (options['host'].get(), options['port'].get())).grid(row = 0, column = 1)
+                Label(sf, text = 'Nickname: ' , anchor='nw', width = 180).grid(row = 0, column = 1)
+                Label(sf, text = (options['nickname'].get()) , anchor='nw', width = 180).grid(row = 1, column = 1)
+                Label(sf , text = "", anchor='nw', width = 180).grid(row = 2, column = 1)
+                Label(sf , text = "Original Code", anchor='nw', width = 180).grid(row = 3, column = 1)
+                Label(sf , text = "By Samuel Simpson", anchor='nw', width = 180).grid(row = 4, column = 1)
 
                 def callback(msg):
                     c = msg.get()[0:150]
