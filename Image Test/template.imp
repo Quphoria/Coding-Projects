@@ -1,0 +1,32 @@
+from shared_functions import *
+import math
+
+def redf (data):
+  return data.red
+def greenf(data):
+  return data.green
+def bluef(data):
+  return data.blue
+
+
+#=== TEMPLATE INFORMATION ===#
+#   Available Varibles:
+#   data.canvas_height
+#   data.canvas_width
+#   data.x
+#   data.y
+#   data.progress
+#   data.percent
+#   data.XValue
+#   data.YValue
+#   data.red
+#   data.green
+#   data.blue
+#
+#   Available Functions:
+#   Anything from the math module
+#   funct_if(thing to test,value if true, value if false)
+#   scale(value minimum, value maximum, new minimum, new maximum, value)
+#   is_even(value)
+#   draw_funct(function(use dx instead of x and put in quotation marks), x value minimum, x value maximum, y value minimum, y value maximum, resolution in px)
+#

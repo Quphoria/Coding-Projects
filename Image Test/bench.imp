@@ -1,0 +1,9 @@
+from shared_functions import *
+import math
+
+def redf (data):
+  return data.YValue * funct_if(data.x < (data.canvas_width / 3), math.sin(math.radians(scale(0,(data.canvas_width / 3),90,180, data.x))), funct_if(data.x > ( 2 * (data.canvas_width / 3)),math.sin(math.radians(scale(( 2 * (data.canvas_width / 3)),data.canvas_width,0,90, data.x))), 0))
+def greenf(data):
+  return data.YValue * funct_if(data.x < ( 2 * (data.canvas_width / 3)), math.sin(math.radians(scale(0,( 2 * (data.canvas_width / 3)),0,180, data.x))), 0)
+def bluef(data):
+  return data.YValue * funct_if(data.x > (data.canvas_width / 3), math.sin(math.radians(scale((data.canvas_width / 3),data.canvas_width,0,180, data.x))), 0)

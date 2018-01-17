@@ -66,10 +66,28 @@ def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerr
 
     def draw_funct(dfunction, dxmin, dxmax, dymin, dymax, resolution):
         dx = scale(0,canvas_width,dxmin,dxmax,x)
-        dy = eval(dfunction)
-        dsy = canvas_height - scale(dymin,dymax,0,canvas_height,dy)
+        cdy = eval(dfunction)
+
+        dx = scale(0,canvas_width,dxmin,dxmax,x-resolution)
+        pdy = eval(dfunction)
+
+        dx = scale(0,canvas_width,dxmin,dxmax,x+resolution)
+        ndy = eval(dfunction)
+
+        cdsy = canvas_height - scale(dymin,dymax,0,canvas_height,cdy)
+        pdsy = canvas_height - scale(dymin,dymax,0,canvas_height,pdy)
+        ndsy = canvas_height - scale(dymin,dymax,0,canvas_height,ndy)
+
+        dyval = scale(0,canvas_height,dymin,dymax,y)
+        py = scale(dymin,dymax,0,canvas_height,dyval-resolution)
+        ny = scale(dymin,dymax,0,canvas_height,dyval+resolution)
+
+
+        #if y - cdsy > py - pdsy and y - cdsy < ny - ndsy:
+        #if (cdsy - y < pdsy - y and cdsy - y > ndsy - y) or (cdsy - y > pdsy - y and cdsy - y < ndsy - y):
+        if (0 < pdsy - y and 0 > ndsy - y) or (0 > pdsy - y and 0 < ndsy - y) or round(cdsy - y) == 0:
         # print("dx: " + str(dx) + " , dy: " + str(dy))
-        if y - dsy < resolution + 1 and y - dsy > 0-(resolution + 1): #round(dsy) == y:
+        # if y - dsy < resolution + 1 and y - dsy > 0-(resolution + 1): #round(dsy) == y:
             return 255
         else:
             return 0

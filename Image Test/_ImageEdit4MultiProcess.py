@@ -37,19 +37,44 @@ while not imported:
 
 
 import time, math, os, queue #, threading
-from multiprocessing import Process, Queue, Value, Manager, Array
+from multiprocessing import Process, Queue, Value, Manager, Array, cpu_count
 globals()["exitFlag"] = False
 from tkinter import *
 import PIL.Image
 from PIL import ImageTk
 if __name__ == '__main__':
     print("All Modules Successfully Loaded!")
+    threadnumber = int(cpu_count())
+    print("Using " + str(threadnumber) + " Thread(s).")
     print("")
-    threadnumber = 2
     time.sleep(0.5)
 
-def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerrors, bfunc, berrors, percent, op):
+def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerrors, bfunc, berrors, percent, op, progfname):
     import math
+
+    class shared_data():
+        canvas_height = 0
+        canvas_width = 0
+        x = 0
+        y = 0
+        progress = 0
+        percent = 0
+        XValue = 0
+        YValue = 0
+        red = 0
+        green = 0
+        blue = 0
+
+    if op == 3:
+        data = shared_data()
+        import types
+        import importlib.machinery
+        progloader = importlib.machinery.SourceFileLoader('ImpProgMod', progfname)
+        progmod = types.ModuleType(progloader.name)
+        progloader.exec_module(progmod)
+        rfunc = progmod.redf
+        gfunc = progmod.greenf
+        bfunc = progmod.bluef
     def funct_if(test,var_true,var_false):
         if (test):
             return var_true
@@ -66,10 +91,28 @@ def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerr
 
     def draw_funct(dfunction, dxmin, dxmax, dymin, dymax, resolution):
         dx = scale(0,canvas_width,dxmin,dxmax,x)
-        dy = eval(dfunction)
-        dsy = canvas_height - scale(dymin,dymax,0,canvas_height,dy)
+        cdy = eval(dfunction)
+
+        dx = scale(0,canvas_width,dxmin,dxmax,x-resolution)
+        pdy = eval(dfunction)
+
+        dx = scale(0,canvas_width,dxmin,dxmax,x+resolution)
+        ndy = eval(dfunction)
+
+        cdsy = canvas_height - scale(dymin,dymax,0,canvas_height,cdy)
+        pdsy = canvas_height - scale(dymin,dymax,0,canvas_height,pdy)
+        ndsy = canvas_height - scale(dymin,dymax,0,canvas_height,ndy)
+
+        dyval = scale(0,canvas_height,dymin,dymax,y)
+        py = scale(dymin,dymax,0,canvas_height,dyval-resolution)
+        ny = scale(dymin,dymax,0,canvas_height,dyval+resolution)
+
+
+        #if y - cdsy > py - pdsy and y - cdsy < ny - ndsy:
+        #if (cdsy - y < pdsy - y and cdsy - y > ndsy - y) or (cdsy - y > pdsy - y and cdsy - y < ndsy - y):
+        if (0 < pdsy - y and 0 > ndsy - y) or (0 > pdsy - y and 0 < ndsy - y) or round(cdsy - y) == 0:
         # print("dx: " + str(dx) + " , dy: " + str(dy))
-        if y - dsy < resolution + 1 and y - dsy > 0-(resolution + 1): #round(dsy) == y:
+        # if y - dsy < resolution + 1 and y - dsy > 0-(resolution + 1): #round(dsy) == y:
             return 255
         else:
             return 0
@@ -194,6 +237,61 @@ def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerr
                         b = 255
                     #print(str(red) + "," + str(green) + "," + str(blue) + ";" + str(r) + "," + str(g) + "," + str(b))
                     pixval = (round(r),round(g),round(b))
+                elif op == 3:
+                    red = value[0]
+                    green = value[1]
+                    blue = value[2]
+
+                    data.canvas_height = canvas_height
+                    data.canvas_width = canvas_width
+                    data.x = x
+                    data.y = y
+                    data.progress = progress
+                    data.percent = percent
+                    data.XValue = XValue
+                    data.YValue = YValue
+                    data.red = red
+                    data.green = green
+                    data.blue = blue
+
+                    try:
+                        # r = rfunccomp()
+                        r = rfunc(data)
+                    except Exception as ex:
+                        print("An Error occured at pixel (" + str(x) + "," + str(y) + "), Colour: " + str(value) + " with the red function: " + str(rfunc))
+                        print("Error: " + str(ex))
+                        r = 0
+                        rerrors.value = rerrors.value + 1
+                    try:
+                        # g = gfunccomp()
+                        g = gfunc(data)
+                    except Exception as ex:
+                        print("An Error occured at pixel (" + str(x) + "," + str(y) + "), Colour: " + str(value) + " with the green function: " + str(gfunc))
+                        print("Error: " + str(ex))
+                        g = 0
+                        gerrors.value = gerrors.value + 1
+                    try:
+                        # b = bfunccomp()
+                        b = bfunc(data)
+                    except Exception as ex:
+                        print("An Error occured at pixel (" + str(x) + "," + str(y) + "), Colour: " + str(value) + " with the blue function: " + str(bfunc))
+                        print("Error: " + str(ex))
+                        b = 0
+                        berrors.value = berrors.value + 1
+                    if r < 0:
+                        r = 0
+                    if r > 255:
+                        r = 255
+                    if g < 0:
+                        g = 0
+                    if g > 255:
+                        g = 255
+                    if b < 0:
+                        b = 0
+                    if b > 255:
+                        b = 255
+                    #print(str(red) + "," + str(green) + "," + str(blue) + ";" + str(r) + "," + str(g) + "," + str(b))
+                    pixval = (round(r),round(g),round(b))
                 else:
                     pixval = value
                 # print("Changing pixel (" + str(x) + "," + str(y) + ") from " + str(value) + " to " + str(pixval))
@@ -208,7 +306,7 @@ def process_data(threadName, q1, q2, im, qlock, ima, rfunc, rerrors, gfunc, gerr
 
 
 if __name__ == '__main__':
-
+    progfilename = ""
     print("""Modes:
     0: Generate New Image
     1: Load Image from File
@@ -275,13 +373,14 @@ if __name__ == '__main__':
     0: Nothing
     1: Greyscale
     2: Custom
+    3: Custom program from file
     """)
 
     opsuccess = False
     while not opsuccess:
         try:
             op = int(input("Operation: "))
-            if 0 <= op and op <= 2:
+            if 0 <= op and op <= 3:
                 opsuccess = True
             else:
                 print("Invalid Op Code")
@@ -312,6 +411,25 @@ if __name__ == '__main__':
         rfunc = "round((red+green+blue) / 3)"
         gfunc = "round((red+green+blue) / 3)"
         bfunc = "round((red+green+blue) / 3)"
+    elif op == 3:
+        sfile = ""
+        gotfile = False
+        while not gotfile:
+            try:
+                print()
+                sfile = input("File: ")
+                f = open(sfile,'rb')
+                f.close()
+                gotfile = True
+            except Exception as ex:
+                print("An error occured when opening the file: " + str(ex))
+                if sfile == "":
+                    sys.exit()
+        print("File: " + sfile)
+        progfilename = sfile
+        rfunc = ""
+        gfunc = ""
+        bfunc = ""
     elif op == 2:
         cusapproved = ""
         while cusapproved.lower() != "y" :
@@ -391,7 +509,7 @@ if __name__ == '__main__':
     for tNum in range(threadnum):
         #thread = myThread(threadID, "Thread-" + str(threadID), workQueue)
         # process_data(threadName, q, im, exitFlag, tmppix, rfunc, rerrors, gfunc, gerrors, bfunc, berrors, percent)
-        thread = Process(target=process_data, args=("Process-" + str(threadID), workQueue1 , workQueue2, mcim, mcqlock, mcima, rfunc, rerrors, gfunc, gerrors, bfunc, berrors, percent, op,))
+        thread = Process(target=process_data, args=("Process-" + str(threadID), workQueue1 , workQueue2, mcim, mcqlock, mcima, rfunc, rerrors, gfunc, gerrors, bfunc, berrors, percent, op, progfilename,))
         thread.start()
         threads.append(thread)
         threadID += 1
