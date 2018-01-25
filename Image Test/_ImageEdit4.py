@@ -361,7 +361,7 @@ while tmpx < globals()["im"].width:
     tmpy = 0
     while tmpy < globals()["im"].height:
         
-        while len(globals()["workQueue"]) = pixel_buffer_size:
+        while len(globals()["workQueue"]) == pixel_buffer_size:
             print("buffer full")
             pass
         globals()["workQueue"].append([tmpx,tmpy,tmppix])
