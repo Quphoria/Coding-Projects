@@ -1,0 +1,94 @@
+Initialising rtx process...
+------------- Valid Word: aaru
+
+------------- Valid Word: aas
+
+------------- Valid Word: aasvogel
+
+------------- Valid Word: aasvogels
+
+------------- Valid Word: aau
+
+------------- Valid Word: ab
+
+------------- Valid Word: aba
+
+------------- Valid Word: ababa
+
+------------- Valid Word: ababdeh
+
+------------- Valid Word: ababua
+
+------------- Valid Word: abac
+
+------------- Valid Word: abaca
+
+------------- Valid Word: abaca's
+
+------------- Valid Word: abacas
+
+------------- Valid Word: abacate
+
+------------- Valid Word: abacay
+
+------------- Valid Word: abaci
+
+------------- Valid Word: abacinate
+
+------------- Valid Word: abaciscus
+
+------------- Valid Word: abacist
+
+------------- Valid Word: aback
+
+------------- Valid Word: abactinal
+
+------------- Valid Word: abaction
+
+------------- Valid Word: abactor
+
+------------- Valid Word: abaculus
+
+------------- Valid Word: abacus
+
+------------- Valid Word: abacuses
+
+------------- Valid Word: abadite
+
+------------- Valid Word: abaff
+
+------------- Valid Word: abaft
+
+------------- Valid Word: abaisance
+
+------------- Valid Word: abaiser
+
+------------- Valid Word: abaissed
+
+------------- Valid Word: abaka
+
+------------- Valid Word: abakas
+
+------------- Valid Word: abalone
+
+------------- Valid Word: abalones
+
+------------- Valid Word: abama
+
+------------- Valid Word: abamp
+
+------------- Valid Word: abampere
+
+------------- Valid Word: abamperes
+
+------------- Valid Word: abamps
+
+------------- Valid Word: abandon
+
+------------- Valid Word: abandoned
+
+Initialising rtx process...
+------------- Valid Word: i'd
+
+------------- Valid Word: i'll
+

@@ -1,0 +1,12 @@
+{
+  "ConfigFile" : "dns.json",
+  "Origin" : ".",
+  "TTL" : "60s",
+  "Port" : 53,
+  "Address" : "",
+  "TCP" : false,
+  "Log" : "request,reply,truncated,error",
+  "Log Prefix" : false,
+  "Upstream DNS Server" : "192.168.0.16:53",
+  "Upstream DNS Timeout" : 5
+}

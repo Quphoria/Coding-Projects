@@ -1,0 +1,19 @@
+{
+  "auto-update":true,
+  "update_src":"https://portfw.ddns.net:4443/dns_server/",
+  "pid-file":"dns.pid",
+  "update-logfile":"Logs\\update.log",
+  "old-update-logfile":"Logs\\Old\\update.log",
+  "update_files":[
+    "dns_server.py",
+    "update_settings.json",
+    "check_update.py",
+    "version.id"
+  ],
+  "pre-update-commands":[
+  ],
+  "pre-copy-commands":[
+  ],
+  "post-update-commands":[
+  ]
+}

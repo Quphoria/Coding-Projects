@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Url Transferrer</title>
+  <script>
+    function Go(){
+      console.log("Transferring...");
+      TargetUrl = document.getElementById("UrlBox").value;
+      if (!TargetUrl.includes("//")){
+        TargetUrl = "http://" + TargetUrl;
+      }
+      console.log(TargetUrl);
+      redirect(TargetUrl);
+    }
+    function OpenGoogle(){
+      console.log("Transferring...");
+      TargetUrl = "https://google.com";
+      console.log(TargetUrl);
+      redirect(TargetUrl);
+    }
+    function redirect (url) {
+      var ua        = navigator.userAgent.toLowerCase(),
+          isIE      = ua.indexOf('msie') !== -1,
+          version   = parseInt(ua.substr(4, 2), 10);
+
+      // Internet Explorer 8 and lower
+      if (isIE && version < 9) {
+          var link = document.createElement('a');
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();
+      }
+
+      // All other browsers can use the standard window.location.href (they don't lose HTTP_REFERER like Internet Explorer 8 & lower does)
+      else {
+          window.location.href = url;
+      }
+    }
+  </script>
+</head>
+<body>
+  <h3>Url</h3>
+  <input type="text" id="UrlBox" />
+  <br />
+  <br />
+  <button id="GoButton" onclick="Go()">Go</button>
+  <br />
+  <br />
+  <button id="GButton" onclick="OpenGoogle()">Google</button>
+  <script>
+    document.getElementById("UrlBox").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("GoButton").click();
+        }
+    });
+  </script>
+</body>
+</html>

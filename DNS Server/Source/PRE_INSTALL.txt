@@ -1,0 +1,1 @@
+The Python DNS Server is for providing a simple DNS proxy/resolver that resolves a specific domain to multiple different IP addresses, depending on the IP of the client.

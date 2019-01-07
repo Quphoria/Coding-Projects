@@ -1,0 +1,3 @@
+Thank you for installing the Python DNS Server and I hope it satisfies your requirements.
+
+To edit the config files please edit the JSON files conf.json and dns.json in the installation directory.

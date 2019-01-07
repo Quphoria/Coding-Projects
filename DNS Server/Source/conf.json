@@ -1,0 +1,15 @@
+{
+  "ConfigFile" : "dns.json",
+  "Origin" : ".",
+  "TTL" : "60s",
+  "Port" : 53,
+  "Address" : "",
+  "TCP" : false,
+  "Log" : "request,truncated",
+  "Log Prefix" : true,
+  "Upstream DNS Server" : "192.168.0.16:53",
+  "Upstream DNS Timeout" : 5,
+  "logfile":"Logs\\dns.log",
+  "old-logfile":"Logs\\Old\\dns.log",
+  "NSSM":"NSSM\\nssm.exe"
+}

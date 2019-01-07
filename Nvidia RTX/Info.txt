@@ -1,0 +1,13 @@
+POST https://forms.nvidia.eu/FP_20181017_rtx_treasure_hunt/process?isJs=1&returnAs=json
+
+Form Data
+rtx_answer: YELLOW
+ncid:
+consumerOptInSentence: Send me gaming & entertainment deals, announcements, and more from NVIDIA. I can unsubscribe at any time.
+region: en_gb
+
+Response JSON Correct
+{"status":"SUCCESS","formID":"FP_20181017_rtx_treasure_hunt","region":"en_gb","token":"bRkJtS9PE4WLKpVMU5BFqTCKJIlIT2gKE59WSh478EnaNZS","data":{"rtx_answer":{"name":"rtx_answer","value":"YELLOW","status":"SUCCESS","messages":false}},"messages":["x2"]}
+
+Response JSON Incorrect
+{"status":"SUCCESS","formID":"FP_20181017_rtx_treasure_hunt","region":"en_gb","token":"KQSD8WVUCm6LDgGR9BkJfMfLtxMGi71HiNg4lBelHJGlTng","data":{"rtx_answer":{"name":"rtx_answer","value":"dsa","status":"SUCCESS","messages":false}},"messages":["Sorry, that's not it. Retry in ..<span id='refreshcountdown'>5<\/span> <script>\n\t\tsetTimeout(function () {document.getElementById('refreshcountdown').innerHTML = '4';},1000)\n\t\tsetTimeout(function () {document.getElementById('refreshcountdown').innerHTML = '3';},2000)\n\t\tsetTimeout(function () {document.getElementById('refreshcountdown').innerHTML = '2';},3000)\n\t\tsetTimeout(function () {document.getElementById('refreshcountdown').innerHTML = '1';},4000)\t\t\n\t\tsetTimeout(function () {window.location.reload(false);},5000)\t\t\n\t\t<\/script>"]}

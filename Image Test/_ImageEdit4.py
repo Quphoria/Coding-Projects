@@ -120,6 +120,7 @@ class myThread (threading.Thread):
         #print ("Exiting " + self.name)
 
 def process_data(threadName, q):
+    import math
     #while not exitFlag or not globals()[q].empty():
     progress = 0
     percent = 0

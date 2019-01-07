@@ -1,0 +1,15 @@
+DNS Server started at 2018-10-13 09-31-59
+Python DNS Server version 1.5
+Using json file: C:\Users\Owner\Desktop\Coding Projects\DNS Server\Source\dns.json
+dict_keys(['sjcrsignon.ddns.net'])
+Domain: sjcrsignon.ddns.net
+IP Zones:
+IP range: 192.168.0.*, 192.168.1.*, 127.0.0.* | Zone IP: 192.168.1.254
+IP range: 192.168.101.* | Zone IP: 192.168.101.1
+IP range: 192.168.102.* | Zone IP: 192.168.102.1
+IP range: 192.168.104.*, 192.168.105.* | Zone IP: 192.168.104.1
+IP range: 192.168.106.* | Zone IP: 192.168.106.1
+
+Starting DNS Resolver (*:53) [UDP]
+    |  sjcrsignon.ddns.net. --> True
+

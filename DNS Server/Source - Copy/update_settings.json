@@ -1,0 +1,18 @@
+{
+  "auto-update":true,
+  "update_src":"https://portfw.ddns.net:4443/dns_server/",
+  "pid-file":"dns.pid",
+  "update_files":[
+    "dns_server.py",
+    "update_settings.json",
+    "check_update.py",
+    "NSSM/nssm.exe",
+    "version.id"
+  ],
+  "pre-update-commands":[
+    "NSSM\\nssm.exe stop \"Python DNS Server\""
+  ],
+  "post-update-commands":[
+    "NSSM\\nssm.exe start \"Python DNS Sever\""
+  ]
+}
