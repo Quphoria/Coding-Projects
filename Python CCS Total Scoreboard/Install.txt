@@ -1,0 +1,2 @@
+Ensure the RunCalcCSV.sh file permissions are set to 776
+Otherwise the service will not run.

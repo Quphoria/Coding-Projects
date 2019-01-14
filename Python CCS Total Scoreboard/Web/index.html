@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--DEFAULT CONTENT HERE :D-->
+<html>
+  <head>
+    <title id="title-span">Totals Scoreboard</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script language="JavaScript" type="text/javascript">
+      function allTotals(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Totals Scoreboard";
+        document.getElementById("total-iframe").contentWindow.location.href="Totals.html";
+        document.getElementById("allButton").className="selected";
+        document.getElementById("juniorButton").className="unselected";
+        document.getElementById("seniorButton").className="unselected";
+      }
+      function juniorTotals(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Junior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.location.href="JuniorTotals.html";
+        document.getElementById("allButton").className="unselected";
+        document.getElementById("juniorButton").className="selected";
+        document.getElementById("seniorButton").className="unselected";
+      }
+      function seniorTotals(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.location.href="SeniorTotals.html";
+        document.getElementById("allButton").className="unselected";
+        document.getElementById("juniorButton").className="unselected";
+        document.getElementById("seniorButton").className="selected";
+      }
+      function allDiv(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.filterDivision("");
+        document.getElementById("allDivButton").className="selected";
+        document.getElementById("mixedDivButton").className="unselected";
+        document.getElementById("boysDivButton").className="unselected";
+        document.getElementById("girlsDivButton").className="unselected";
+        document.getElementById("cadetsDivButton").className="unselected";
+        submitTeamCode(false);
+      }
+      function mixedDiv(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.filterDivision("Mixed Gender");
+        document.getElementById("allDivButton").className="unselected";
+        document.getElementById("mixedDivButton").className="selected";
+        document.getElementById("boysDivButton").className="unselected";
+        document.getElementById("girlsDivButton").className="unselected";
+        document.getElementById("cadetsDivButton").className="unselected";
+        submitTeamCode(false);
+      }
+      function boysDiv(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.filterDivision("All Boys");
+        document.getElementById("allDivButton").className="unselected";
+        document.getElementById("mixedDivButton").className="unselected";
+        document.getElementById("boysDivButton").className="selected";
+        document.getElementById("girlsDivButton").className="unselected";
+        document.getElementById("cadetsDivButton").className="unselected";
+        submitTeamCode(false);
+      }
+      function girlsDiv(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.filterDivision("All Girls");
+        document.getElementById("allDivButton").className="unselected";
+        document.getElementById("mixedDivButton").className="unselected";
+        document.getElementById("boysDivButton").className="unselected";
+        document.getElementById("girlsDivButton").className="selected";
+        document.getElementById("cadetsDivButton").className="unselected";
+        submitTeamCode(false);
+      }
+      function cadetsDiv(){
+        gotoTeam("");
+        document.getElementById("title-span").innerText="Senior Totals Scoreboard"
+        document.getElementById("total-iframe").contentWindow.filterDivision("Cadets");
+        document.getElementById("allDivButton").className="unselected";
+        document.getElementById("mixedDivButton").className="unselected";
+        document.getElementById("boysDivButton").className="unselected";
+        document.getElementById("girlsDivButton").className="unselected";
+        document.getElementById("cadetsDivButton").className="selected";
+        submitTeamCode(false);
+      }
+      function resizeIframe(obj) {
+        obj.style.height = (30 + obj.contentWindow.document.body.scrollHeight) + 'px';
+      }
+      function gotoTeam(team) {
+        document.getElementById("total-iframe").contentWindow.gotoTeam(team);
+      }
+      function teamCodeCallback(fill_empty) {
+        var code = document.getElementById("teamcode").value;
+        if (fill_empty && code != "" ) {
+          while (code.length > 3 && code.charAt(0) == "0") {
+            code = code.substr(1);
+          }
+          var numZeropad = code.substring(0,3) + '';
+          while(numZeropad.length < 3) {
+            numZeropad = "0" + numZeropad;
+          }
+          document.getElementById("teamcode").value = numZeropad;
+        }
+      }
+      function submitTeamCode(fill_empty) {
+        teamCodeCallback(fill_empty);
+        if (document.getElementById("teamcode").value !== ""){
+          var teamid = "CCV-" + document.getElementById("teamcode").value;
+          try {
+            gotoTeam(teamid);
+            document.getElementById("teamCodeError").innerText = "";
+            var position = document.getElementById("total-iframe").contentWindow.getPosition(teamid);
+            var div_position = document.getElementById("total-iframe").contentWindow.getDivPosition(teamid);
+            if (position != "" && div_position != "") {
+              document.getElementById("teamPosition").innerText = "Your team " + teamid + " is in "
+                                                                  + position + " place in its age category,";
+              document.getElementById("teamDivPosition").innerText = "and in "
+                                                                  + div_position + " place in its division.";
+            } else {
+              document.getElementById("teamPosition").innerText = "";
+              document.getElementById("teamDivPosition").innerText = "";
+            }
+          } catch (e) {
+            console.log("Cannot find team. Error: ",e);
+            document.getElementById("teamCodeError").innerText = "Cannot Find Team.";
+            document.getElementById("teamPosition").innerText = "";
+            document.getElementById("teamDivPosition").innerText = "";
+          }
+        }
+      }
+      function receiveMessage(event)
+      {
+        if (event.data == "IframeReload") {
+          submitTeamCode(false);
+          if (document.getElementById("allDivButton").className=="selected") {
+            document.getElementById("total-iframe").contentWindow.filterDivision("");
+          } else if (document.getElementById("mixedDivButton").className=="selected") {
+            document.getElementById("total-iframe").contentWindow.filterDivision("Mixed Gender");
+          } else if (document.getElementById("boysDivButton").className=="selected") {
+            document.getElementById("total-iframe").contentWindow.filterDivision("All Boys");
+          } else if (document.getElementById("girlsDivButton").className=="selected") {
+            document.getElementById("total-iframe").contentWindow.filterDivision("All Girls");
+          } else if (document.getElementById("cadetsDivButton").className=="selected") {
+            document.getElementById("total-iframe").contentWindow.filterDivision("Cadets");
+          } else {
+            document.getElementById("total-iframe").contentWindow.filterDivision("");
+          }
+        }
+      }
+      function onpageload(){
+        window.addEventListener("message", receiveMessage, false);
+      }
+    </script>
+  </head>
+  <body style="margin: 0" onload="onpageload()">
+    <div class="left" style="float:left">
+      <div style="position:fixed; padding:20px">
+        <h2>CCV Total Scoreboard</h1>
+        <button onclick="allTotals()" class="selected" id="allButton">All Categories</button><br />
+        <button onclick="juniorTotals()" class="unselected" id="juniorButton">Junior Category</button><br />
+        <button onclick="seniorTotals()" class="unselected" id="seniorButton">Senior Category</button><br /><br />
+        <button onclick="allDiv()" class="selected" id="allDivButton">All Divisions</button><br />
+        <button onclick="mixedDiv()" class="unselected" id="mixedDivButton">Mixed Division</button><br />
+        <button onclick="boysDiv()" class="unselected" id="boysDivButton">All Boys Division</button><br />
+        <button onclick="girlsDiv()" class="unselected" id="girlsDivButton">All Girls Division</button><br />
+        <button onclick="cadetsDiv()" class="unselected" id="cadetsDivButton">Cadets Division</button><br />
+        <br />
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Team
+              </th>
+              <th>
+                <span class="textbox">
+                  CCV-
+                  <input onkeyup="teamCodeCallback(true)" type="number" id="teamcode" autofocus style="width:50px" min=0 max=999 placeholder="000" />
+                </span>
+              </th>
+              <th style="padding:10px">
+                <button onclick="submitTeamCode(true)" style="width:30px" id="team-code-button">Go</button>
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <span style="color:red" id="teamCodeError"></span>
+        <br />
+        <h4 id="teamPosition"></h4>
+        <h4 id="teamDivPosition"></h4>
+        <script language="JavaScript" type="text/javascript">
+          document.getElementById("teamcode").addEventListener("keyup", function(event) {
+          event.preventDefault();
+          if (event.keyCode === 13) { //Enter Key
+            document.getElementById("team-code-button").click();
+          }
+          });
+        </script>
+      </div>
+    </div>
+    <div class="right" align="center" style="float:right;width:55%;min-width:680;border-left:3px double #343434;">
+      <iframe id="total-iframe" src="Totals.html" width="680" height="500%" style="border: 0" onload="this.style.height = (30 + this.contentWindow.document.body.scrollHeight) + 'px'"></iframe>
+    </div>
+    <div class="bottom-left" align="left" style="padding:10px;float:left bottom;position:fixed;bottom:0;width:30%">
+      <h6 style="font-weight: normal;color:red">*Scores do not include penalty deductions.</h6>
+      <h6 style="font-weight: normal;">(Page automatically reloads)</h6>
+      Designed by Samuel Simpson
+    </div>
+  </body>
+</html>

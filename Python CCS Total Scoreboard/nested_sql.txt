@@ -1,0 +1,26 @@
+SELECT un.Team, Max(un.[Scored Images Category]) AS [Max Scored Images Category], Sum(un.[CCS Score]) AS [Total CCS Score]
+FROM (
+  SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round1]
+  UNION SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round2]
+  UNION SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round3]
+) AS un
+GROUP BY un.Team
+ORDER BY Sum(un.[CCS Score]) DESC;
+
+SELECT un2.Team, un2.[Max Scored Images Category], un2.[Total CCS Score], Division.Division
+FROM (SELECT un.Team, Max(un.[Scored Images Category]) AS [Max Scored Images Category], Sum(un.[CCS Score]) AS [Total CCS Score]
+FROM (
+  SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round1]
+  UNION SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round2]
+  UNION SELECT [Team], [Scored Images Category], [CCS Score], [Round]
+  FROM [Round3]
+) AS un
+) AS un2
+LEFT JOIN Division ON un2.Team = Division.Team
+GROUP BY un2.Team
+ORDER BY un2.[Total CCS Score] DESC;

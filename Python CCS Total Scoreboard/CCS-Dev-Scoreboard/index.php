@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CyberCenturion CCS Scoreboard</title><link rel='stylesheet' type='text/css' href='style.css'>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+  $(".clickable").click(function() {
+    window.document.location = $(this).attr("href");
+  });
+});
+</script>
+<meta http-equiv="refresh" content="30">
+</head>
+<body>
+
+<div class='main'>
+<div class='header'>
+<img align=middle src='/images/logo-cybercenturion.png'>
+<img align=middle src='/images/logo-cscuk.png'>
+</div>
+<div class='navbar'>
+<ul class='nav'>
+  <li><a href='/'>All Teams</a></li>
+  <li><a href='/top.php'>Top Teams</a></li>
+  <li>Division &#9662;
+  <ul>
+    <li><a href='index.php'>&lt;All&gt;</a></li>
+    <li><a href='index.php?division=0'>0</a></li>
+    <li><a href='index.php?division=All Boys'>All Boys</a></li>
+    <li><a href='index.php?division=All Girls'>All Girls</a></li>
+    <li><a href='index.php?division=Cadets Group'>Cadets Group</a></li>
+    <li><a href='index.php?division=Mixed Gender Group'>Mixed Gender Group</a></li>
+  </ul>
+  </li>
+  <li><a href='/map.php'>Map</a></li>
+</ul>
+</div>
+</div>
+
+<div class='main'>
+<div class='text'>
+<h1>CyberCenturion CCS Scoreboard</h1>
+<h2>Displaying All Teams</h2>
+<h2>Generated At: 2019-01-10 18:13:36 UTC</h2>
+<p class='disclaimer'>The scores and warnings shown on this site have not been officially verified and are provided for reference purposes only.  Displayed scores may not include penalties or other lost points.  Official scores are published by the Cyber Security Challenge UK Program Office during the week following each round of competition. </p>
+<p>
+*Warning Key:<br>
+<b>M</b> = Multiple Instances Running Concurrently<br>
+<b>T</b> = Competition Time Exceeded<br>
+</p>
+<table cellspacing='0' cellpadding='0' class='CSSTableGenerator'><tr><td></td><td class='clickable' href='index.php?sort=Number'>Team<br>Number</td><td class='clickable' href='index.php?sort=Location'>Location/<br>Category</td><td class='clickable' href='index.php?sort=Division'>Division</td><td class='clickable' href='index.php?sort=Images'>Scored<br>Images</td><td class='clickable' href='index.php?sort=Received'>Play Time<br>(HH:MM)</td><td class='clickable' href='index.php?sort=Warning'>*Warn</td><td class='clickable' href='index.php?sort=Score'>CCS<br>Score</td></tr>
+<tr class='clickable' href='team.php?team=CPOC-01'><td>1</td><td>CPOC-01</td><td></td><td>Jeff</td><td>3</td><td>03:47</td><td></td><td>0</td></tr>
+</table><br><p class='disclaimer'>The CCS Competition System is the property of the Air Force Association and the University of Texas at San Antonio.</p><p class='disclaimer'>All rights reserved.</p>
+</div>
+</div>
+</body>
+</html>

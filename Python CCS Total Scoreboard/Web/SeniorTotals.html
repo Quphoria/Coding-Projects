@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!--DEFAULT CONTENT HERE :D-->
+<html>
+  <head>
+    <title>MEOW</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script language="JavaScript" type="text/javascript">
+      function gotoTeam(val){
+        if (val == "") {
+          var row = document.getElementById("time-h1");
+          // var url = (window.location.href).split("#")[0];
+          // window.location.href = url;
+        } else {
+          var row = document.getElementById("R-" + val);
+          // var url = (window.location.href).split("#")[0];
+          // window.location.href = url + "#" + val;
+        }
+        row.scrollIntoViewIfNeeded({behavior: "smooth"});
+        var highlighted = document.getElementsByClassName("highlight");
+        for (var i = 0; i < highlighted.length; i++) {
+          highlighted[i].className="normal";
+        }
+        if (val != "") {row.className="highlight";}
+      }
+      function getPosition(val) {
+        if (val == "") {
+          return ""
+        } else {
+          var row = document.getElementById("R-" + val);
+          var pos = row.children[0].innerText
+          return pos;
+        }
+      }
+      function getDivPosition(val) {
+        if (val == "") {
+          return ""
+        } else {
+          var row = document.getElementById("R-" + val);
+          var pos = row.children[1].innerText
+          return pos;
+        }
+      }
+      function refreshPage() {
+        setTimeout('window.location.reload()',60000);
+        window.postMessage("IframeReload", "*");
+      }
+      function filterDivision(div) {
+        var table, tr, td, i, txtValue;
+        table = document.getElementById("tbl");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[3];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.indexOf(div) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+      window.onload = function(){
+          setTimeout('window.location.reload()',60000);
+          parent.postMessage("IframeReload", "*");
+      };
+    </script>
+  </head>
+  <body>
+    <h2 align="center" id="time-h1">Totals Calculated At:</h2><h4 align="center">12:54:36&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saturday, January 12, 2019</h4>
+    <table style="margin: 0px auto; position:relative; top:0px;" id="tbl">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Div. Pos.</th>
+          <th>Team ID</th>
+          <th>Division</th>
+          <th>Age Category</th>
+          <th>Total Score</th>
+        </tr>
+      </thead>
+      <tbody id="totaltable">
+        <tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-275')" id="R-CCV-275" class="normal">
+          <td>1st</td>
+          <td>1st</td>
+          <td>CCV-275</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>459</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-289')" id="R-CCV-289" class="normal">
+          <td>2nd</td>
+          <td>2nd</td>
+          <td>CCV-289</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>452</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-171')" id="R-CCV-171" class="normal">
+          <td>3rd</td>
+          <td>3rd</td>
+          <td>CCV-171</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>447</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-172')" id="R-CCV-172" class="normal">
+          <td>4th</td>
+          <td>4th</td>
+          <td>CCV-172</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>447</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-147')" id="R-CCV-147" class="normal">
+          <td>5th</td>
+          <td>5th</td>
+          <td>CCV-147</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>438</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-148')" id="R-CCV-148" class="normal">
+          <td>6th</td>
+          <td>1st</td>
+          <td>CCV-148</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>427</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-347')" id="R-CCV-347" class="normal">
+          <td>7th</td>
+          <td>6th</td>
+          <td>CCV-347</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>424</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-294')" id="R-CCV-294" class="normal">
+          <td>8th</td>
+          <td>2nd</td>
+          <td>CCV-294</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>394</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-011')" id="R-CCV-011" class="normal">
+          <td>9th</td>
+          <td>7th</td>
+          <td>CCV-011</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>378</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-145')" id="R-CCV-145" class="normal">
+          <td>10th</td>
+          <td>1st</td>
+          <td>CCV-145</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>378</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-270')" id="R-CCV-270" class="normal">
+          <td>11th</td>
+          <td>3rd</td>
+          <td>CCV-270</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>378</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-186')" id="R-CCV-186" class="normal">
+          <td>12th</td>
+          <td>8th</td>
+          <td>CCV-186</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>366</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-052')" id="R-CCV-052" class="normal">
+          <td>13th</td>
+          <td>4th</td>
+          <td>CCV-052</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>358</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-268')" id="R-CCV-268" class="normal">
+          <td>14th</td>
+          <td>9th</td>
+          <td>CCV-268</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>354</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-234')" id="R-CCV-234" class="normal">
+          <td>15th</td>
+          <td>10th</td>
+          <td>CCV-234</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>353</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-176')" id="R-CCV-176" class="normal">
+          <td>16th</td>
+          <td>2nd</td>
+          <td>CCV-176</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>337</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-303')" id="R-CCV-303" class="normal">
+          <td>17th</td>
+          <td>5th</td>
+          <td>CCV-303</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>336</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-274')" id="R-CCV-274" class="normal">
+          <td>18th</td>
+          <td>11th</td>
+          <td>CCV-274</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>334</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-160')" id="R-CCV-160" class="normal">
+          <td>19th</td>
+          <td>6th</td>
+          <td>CCV-160</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>333</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-167')" id="R-CCV-167" class="normal">
+          <td>20th</td>
+          <td>12th</td>
+          <td>CCV-167</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>332</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-168')" id="R-CCV-168" class="normal">
+          <td>21st</td>
+          <td>7th</td>
+          <td>CCV-168</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>332</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-287')" id="R-CCV-287" class="normal">
+          <td>22nd</td>
+          <td>13th</td>
+          <td>CCV-287</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>329</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-014')" id="R-CCV-014" class="normal">
+          <td>23rd</td>
+          <td>3rd</td>
+          <td>CCV-014</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>325</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-146')" id="R-CCV-146" class="normal">
+          <td>24th</td>
+          <td>14th</td>
+          <td>CCV-146</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>314</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-410')" id="R-CCV-410" class="normal">
+          <td>25th</td>
+          <td>8th</td>
+          <td>CCV-410</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>313</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-451')" id="R-CCV-451" class="normal">
+          <td>26th</td>
+          <td>1st</td>
+          <td>CCV-451</td>
+          <td>Cadets</td>
+          <td>Senior</td>
+          <td>313</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-291')" id="R-CCV-291" class="normal">
+          <td>27th</td>
+          <td>15th</td>
+          <td>CCV-291</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>312</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-409')" id="R-CCV-409" class="normal">
+          <td>28th</td>
+          <td>9th</td>
+          <td>CCV-409</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>312</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-423')" id="R-CCV-423" class="normal">
+          <td>29th</td>
+          <td>16th</td>
+          <td>CCV-423</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>312</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-456')" id="R-CCV-456" class="normal">
+          <td>30th</td>
+          <td>10th</td>
+          <td>CCV-456</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>307</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-471')" id="R-CCV-471" class="normal">
+          <td>31st</td>
+          <td>17th</td>
+          <td>CCV-471</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>307</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-201')" id="R-CCV-201" class="normal">
+          <td>32nd</td>
+          <td>11th</td>
+          <td>CCV-201</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>305</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-313')" id="R-CCV-313" class="normal">
+          <td>33rd</td>
+          <td>12th</td>
+          <td>CCV-313</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>305</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-314')" id="R-CCV-314" class="normal">
+          <td>34th</td>
+          <td>13th</td>
+          <td>CCV-314</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>305</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-151')" id="R-CCV-151" class="normal">
+          <td>35th</td>
+          <td>18th</td>
+          <td>CCV-151</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>304</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-081')" id="R-CCV-081" class="normal">
+          <td>36th</td>
+          <td>14th</td>
+          <td>CCV-081</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>299</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-111')" id="R-CCV-111" class="normal">
+          <td>37th</td>
+          <td>2nd</td>
+          <td>CCV-111</td>
+          <td>Cadets</td>
+          <td>Senior</td>
+          <td>297</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-422')" id="R-CCV-422" class="normal">
+          <td>38th</td>
+          <td>15th</td>
+          <td>CCV-422</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>296</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-473')" id="R-CCV-473" class="normal">
+          <td>39th</td>
+          <td>16th</td>
+          <td>CCV-473</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>296</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-292')" id="R-CCV-292" class="normal">
+          <td>40th</td>
+          <td>4th</td>
+          <td>CCV-292</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>295</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-157')" id="R-CCV-157" class="normal">
+          <td>41st</td>
+          <td>19th</td>
+          <td>CCV-157</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>292</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-295')" id="R-CCV-295" class="normal">
+          <td>42nd</td>
+          <td>20th</td>
+          <td>CCV-295</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>284</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-249')" id="R-CCV-249" class="normal">
+          <td>43rd</td>
+          <td>21st</td>
+          <td>CCV-249</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>282</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-483')" id="R-CCV-483" class="normal">
+          <td>44th</td>
+          <td>22nd</td>
+          <td>CCV-483</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>279</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-469')" id="R-CCV-469" class="normal">
+          <td>45th</td>
+          <td>23rd</td>
+          <td>CCV-469</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>278</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-481')" id="R-CCV-481" class="normal">
+          <td>46th</td>
+          <td>17th</td>
+          <td>CCV-481</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>278</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-474')" id="R-CCV-474" class="normal">
+          <td>47th</td>
+          <td>24th</td>
+          <td>CCV-474</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>276</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-132')" id="R-CCV-132" class="normal">
+          <td>48th</td>
+          <td>25th</td>
+          <td>CCV-132</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>271</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-290')" id="R-CCV-290" class="normal">
+          <td>49th</td>
+          <td>26th</td>
+          <td>CCV-290</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>271</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-150')" id="R-CCV-150" class="normal">
+          <td>50th</td>
+          <td>27th</td>
+          <td>CCV-150</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>263</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-363')" id="R-CCV-363" class="normal">
+          <td>51st</td>
+          <td>18th</td>
+          <td>CCV-363</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>258</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-100')" id="R-CCV-100" class="normal">
+          <td>52nd</td>
+          <td>3rd</td>
+          <td>CCV-100</td>
+          <td>Cadets</td>
+          <td>Senior</td>
+          <td>255</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-034')" id="R-CCV-034" class="normal">
+          <td>53rd</td>
+          <td>19th</td>
+          <td>CCV-034</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>254</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-322')" id="R-CCV-322" class="normal">
+          <td>54th</td>
+          <td>5th</td>
+          <td>CCV-322</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>246</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-472')" id="R-CCV-472" class="normal">
+          <td>55th</td>
+          <td>20th</td>
+          <td>CCV-472</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>246</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-010')" id="R-CCV-010" class="normal">
+          <td>56th</td>
+          <td>6th</td>
+          <td>CCV-010</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>243</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-286')" id="R-CCV-286" class="normal">
+          <td>57th</td>
+          <td>4th</td>
+          <td>CCV-286</td>
+          <td>Cadets</td>
+          <td>Senior</td>
+          <td>239</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-455')" id="R-CCV-455" class="normal">
+          <td>58th</td>
+          <td>28th</td>
+          <td>CCV-455</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>225</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-035')" id="R-CCV-035" class="normal">
+          <td>59th</td>
+          <td>21st</td>
+          <td>CCV-035</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>224</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-175')" id="R-CCV-175" class="normal">
+          <td>60th</td>
+          <td>22nd</td>
+          <td>CCV-175</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>212</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-361')" id="R-CCV-361" class="normal">
+          <td>61st</td>
+          <td>23rd</td>
+          <td>CCV-361</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>209</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-345')" id="R-CCV-345" class="normal">
+          <td>62nd</td>
+          <td>24th</td>
+          <td>CCV-345</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>207</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-478')" id="R-CCV-478" class="normal">
+          <td>63rd</td>
+          <td>25th</td>
+          <td>CCV-478</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>206</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-141')" id="R-CCV-141" class="normal">
+          <td>64th</td>
+          <td>1st</td>
+          <td>CCV-141</td>
+          <td></td>
+          <td>Senior</td>
+          <td>200</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-462')" id="R-CCV-462" class="normal">
+          <td>65th</td>
+          <td>26th</td>
+          <td>CCV-462</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>198</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-109')" id="R-CCV-109" class="normal">
+          <td>66th</td>
+          <td>2nd</td>
+          <td>CCV-109</td>
+          <td></td>
+          <td>Senior</td>
+          <td>197</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-339')" id="R-CCV-339" class="normal">
+          <td>67th</td>
+          <td>27th</td>
+          <td>CCV-339</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>197</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-396')" id="R-CCV-396" class="normal">
+          <td>68th</td>
+          <td>28th</td>
+          <td>CCV-396</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>193</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-067')" id="R-CCV-067" class="normal">
+          <td>69th</td>
+          <td>3rd</td>
+          <td>CCV-067</td>
+          <td></td>
+          <td>Senior</td>
+          <td>192</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-306')" id="R-CCV-306" class="normal">
+          <td>70th</td>
+          <td>29th</td>
+          <td>CCV-306</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>192</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-064')" id="R-CCV-064" class="normal">
+          <td>71st</td>
+          <td>4th</td>
+          <td>CCV-064</td>
+          <td></td>
+          <td>Senior</td>
+          <td>191</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-088')" id="R-CCV-088" class="normal">
+          <td>72nd</td>
+          <td>5th</td>
+          <td>CCV-088</td>
+          <td></td>
+          <td>Senior</td>
+          <td>189</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-324')" id="R-CCV-324" class="normal">
+          <td>73rd</td>
+          <td>30th</td>
+          <td>CCV-324</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>189</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-102')" id="R-CCV-102" class="normal">
+          <td>74th</td>
+          <td>6th</td>
+          <td>CCV-102</td>
+          <td></td>
+          <td>Senior</td>
+          <td>184</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-119')" id="R-CCV-119" class="normal">
+          <td>75th</td>
+          <td>7th</td>
+          <td>CCV-119</td>
+          <td></td>
+          <td>Senior</td>
+          <td>184</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-103')" id="R-CCV-103" class="normal">
+          <td>76th</td>
+          <td>8th</td>
+          <td>CCV-103</td>
+          <td></td>
+          <td>Senior</td>
+          <td>183</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-118')" id="R-CCV-118" class="normal">
+          <td>77th</td>
+          <td>9th</td>
+          <td>CCV-118</td>
+          <td></td>
+          <td>Senior</td>
+          <td>183</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-272')" id="R-CCV-272" class="normal">
+          <td>78th</td>
+          <td>10th</td>
+          <td>CCV-272</td>
+          <td></td>
+          <td>Senior</td>
+          <td>183</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-285')" id="R-CCV-285" class="normal">
+          <td>79th</td>
+          <td>5th</td>
+          <td>CCV-285</td>
+          <td>Cadets</td>
+          <td>Senior</td>
+          <td>176</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-153')" id="R-CCV-153" class="normal">
+          <td>80th</td>
+          <td>29th</td>
+          <td>CCV-153</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>175</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-425')" id="R-CCV-425" class="normal">
+          <td>81st</td>
+          <td>30th</td>
+          <td>CCV-425</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>175</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-221')" id="R-CCV-221" class="normal">
+          <td>82nd</td>
+          <td>11th</td>
+          <td>CCV-221</td>
+          <td></td>
+          <td>Senior</td>
+          <td>172</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-033')" id="R-CCV-033" class="normal">
+          <td>83rd</td>
+          <td>12th</td>
+          <td>CCV-033</td>
+          <td></td>
+          <td>Senior</td>
+          <td>170</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-300')" id="R-CCV-300" class="normal">
+          <td>84th</td>
+          <td>31st</td>
+          <td>CCV-300</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>167</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-098')" id="R-CCV-098" class="normal">
+          <td>85th</td>
+          <td>13th</td>
+          <td>CCV-098</td>
+          <td></td>
+          <td>Senior</td>
+          <td>164</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-188')" id="R-CCV-188" class="normal">
+          <td>86th</td>
+          <td>14th</td>
+          <td>CCV-188</td>
+          <td></td>
+          <td>Senior</td>
+          <td>164</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-232')" id="R-CCV-232" class="normal">
+          <td>87th</td>
+          <td>15th</td>
+          <td>CCV-232</td>
+          <td></td>
+          <td>Senior</td>
+          <td>164</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-018')" id="R-CCV-018" class="normal">
+          <td>88th</td>
+          <td>16th</td>
+          <td>CCV-018</td>
+          <td></td>
+          <td>Senior</td>
+          <td>163</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-366')" id="R-CCV-366" class="normal">
+          <td>89th</td>
+          <td>17th</td>
+          <td>CCV-366</td>
+          <td></td>
+          <td>Senior</td>
+          <td>163</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-411')" id="R-CCV-411" class="normal">
+          <td>90th</td>
+          <td>18th</td>
+          <td>CCV-411</td>
+          <td></td>
+          <td>Senior</td>
+          <td>163</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-395')" id="R-CCV-395" class="normal">
+          <td>91st</td>
+          <td>32nd</td>
+          <td>CCV-395</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>162</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-133')" id="R-CCV-133" class="normal">
+          <td>92nd</td>
+          <td>7th</td>
+          <td>CCV-133</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>160</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-053')" id="R-CCV-053" class="normal">
+          <td>93rd</td>
+          <td>19th</td>
+          <td>CCV-053</td>
+          <td></td>
+          <td>Senior</td>
+          <td>158</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-299')" id="R-CCV-299" class="normal">
+          <td>94th</td>
+          <td>20th</td>
+          <td>CCV-299</td>
+          <td></td>
+          <td>Senior</td>
+          <td>158</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-356')" id="R-CCV-356" class="normal">
+          <td>95th</td>
+          <td>21st</td>
+          <td>CCV-356</td>
+          <td></td>
+          <td>Senior</td>
+          <td>155</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-114')" id="R-CCV-114" class="normal">
+          <td>96th</td>
+          <td>22nd</td>
+          <td>CCV-114</td>
+          <td></td>
+          <td>Senior</td>
+          <td>154</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-435')" id="R-CCV-435" class="normal">
+          <td>97th</td>
+          <td>23rd</td>
+          <td>CCV-435</td>
+          <td></td>
+          <td>Senior</td>
+          <td>151</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-215')" id="R-CCV-215" class="normal">
+          <td>98th</td>
+          <td>24th</td>
+          <td>CCV-215</td>
+          <td></td>
+          <td>Senior</td>
+          <td>150</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-391')" id="R-CCV-391" class="normal">
+          <td>99th</td>
+          <td>25th</td>
+          <td>CCV-391</td>
+          <td></td>
+          <td>Senior</td>
+          <td>149</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-200')" id="R-CCV-200" class="normal">
+          <td>100th</td>
+          <td>26th</td>
+          <td>CCV-200</td>
+          <td></td>
+          <td>Senior</td>
+          <td>146</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-424')" id="R-CCV-424" class="normal">
+          <td>101st</td>
+          <td>27th</td>
+          <td>CCV-424</td>
+          <td></td>
+          <td>Senior</td>
+          <td>145</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-446')" id="R-CCV-446" class="normal">
+          <td>102nd</td>
+          <td>28th</td>
+          <td>CCV-446</td>
+          <td></td>
+          <td>Senior</td>
+          <td>145</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-113')" id="R-CCV-113" class="normal">
+          <td>103rd</td>
+          <td>29th</td>
+          <td>CCV-113</td>
+          <td></td>
+          <td>Senior</td>
+          <td>142</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-348')" id="R-CCV-348" class="normal">
+          <td>104th</td>
+          <td>30th</td>
+          <td>CCV-348</td>
+          <td></td>
+          <td>Senior</td>
+          <td>141</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-354')" id="R-CCV-354" class="normal">
+          <td>105th</td>
+          <td>31st</td>
+          <td>CCV-354</td>
+          <td></td>
+          <td>Senior</td>
+          <td>139</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-085')" id="R-CCV-085" class="normal">
+          <td>106th</td>
+          <td>33rd</td>
+          <td>CCV-085</td>
+          <td>All Boys</td>
+          <td>Senior</td>
+          <td>134</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-137')" id="R-CCV-137" class="normal">
+          <td>107th</td>
+          <td>31st</td>
+          <td>CCV-137</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>130</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-196')" id="R-CCV-196" class="normal">
+          <td>108th</td>
+          <td>32nd</td>
+          <td>CCV-196</td>
+          <td></td>
+          <td>Senior</td>
+          <td>130</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-415')" id="R-CCV-415" class="normal">
+          <td>109th</td>
+          <td>33rd</td>
+          <td>CCV-415</td>
+          <td></td>
+          <td>Senior</td>
+          <td>129</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-338')" id="R-CCV-338" class="normal">
+          <td>110th</td>
+          <td>32nd</td>
+          <td>CCV-338</td>
+          <td>Mixed Gender</td>
+          <td>Senior</td>
+          <td>127</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-110')" id="R-CCV-110" class="normal">
+          <td>111th</td>
+          <td>34th</td>
+          <td>CCV-110</td>
+          <td></td>
+          <td>Senior</td>
+          <td>125</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-112')" id="R-CCV-112" class="normal">
+          <td>112th</td>
+          <td>8th</td>
+          <td>CCV-112</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>125</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-027')" id="R-CCV-027" class="normal">
+          <td>113th</td>
+          <td>35th</td>
+          <td>CCV-027</td>
+          <td></td>
+          <td>Senior</td>
+          <td>118</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-195')" id="R-CCV-195" class="normal">
+          <td>114th</td>
+          <td>36th</td>
+          <td>CCV-195</td>
+          <td></td>
+          <td>Senior</td>
+          <td>106</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-381')" id="R-CCV-381" class="normal">
+          <td>115th</td>
+          <td>37th</td>
+          <td>CCV-381</td>
+          <td></td>
+          <td>Senior</td>
+          <td>106</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-426')" id="R-CCV-426" class="normal">
+          <td>116th</td>
+          <td>38th</td>
+          <td>CCV-426</td>
+          <td></td>
+          <td>Senior</td>
+          <td>106</td>
+        </tr><tr onclick="window.open('http://scoreboard2.uscyberpatriot.org/team.php?team=CCV-293')" id="R-CCV-293" class="normal">
+          <td>117th</td>
+          <td>9th</td>
+          <td>CCV-293</td>
+          <td>All Girls</td>
+          <td>Senior</td>
+          <td>103</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4 align="center">Designed by Samuel Simpson</h4>
+  </body>
+</html>
