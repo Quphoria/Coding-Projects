@@ -98,7 +98,7 @@ try:
     elif op == 1:
         olist = merge.sort(nlist)
     elif op == 2:
-        olist = quicksort2.sort(nlist)
+        olist = quicksort.sort(nlist)
     elif op == 3:
         valid_sort = verify.check(nlist,order)
     else:
