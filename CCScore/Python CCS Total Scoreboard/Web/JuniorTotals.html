@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--DEFAULT CONTENT HERE :D-->
+<html>
+  <head>
+    <title>MEOW</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script language="JavaScript" type="text/javascript">
+      function gotoTeam(val){
+        if (val == "") {
+          var row = document.getElementById("time-h1");
+          // var url = (window.location.href).split("#")[0];
+          // window.location.href = url;
+        } else {
+          var row = document.getElementById("R-" + val);
+          // var url = (window.location.href).split("#")[0];
+          // window.location.href = url + "#" + val;
+        }
+        row.scrollIntoViewIfNeeded({behavior: "smooth"});
+        var highlighted = document.getElementsByClassName("highlight");
+        for (var i = 0; i < highlighted.length; i++) {
+          highlighted[i].className="normal";
+        }
+        if (val != "") {row.className="highlight";}
+      }
+      function getPosition(val) {
+        if (val == "") {
+          return ""
+        } else {
+          var row = document.getElementById("R-" + val);
+          var pos = row.children[0].innerText
+          return pos;
+        }
+      }
+      function getDivPosition(val) {
+        if (val == "") {
+          return ""
+        } else {
+          var row = document.getElementById("R-" + val);
+          var pos = row.children[1].innerText
+          return pos;
+        }
+      }
+      function refreshPage() {
+        setTimeout('window.location.reload()',60000);
+        window.postMessage("IframeReload", "*");
+      }
+      function filterDivision(div) {
+        var table, tr, td, i, txtValue;
+        table = document.getElementById("tbl");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[3];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.indexOf(div) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+      window.onload = function(){
+          setTimeout('window.location.reload()',60000);
+          parent.postMessage("IframeReload", "*");
+      };
+    </script>
+  </head>
+  <body>
+    <h2 align="center" id="time-h1">Totals Calculated At:</h2><h4 align="center">20:09:32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wednesday, November 06, 2019</h4>
+    <table style="margin: 0px auto; position:relative; top:0px;" id="tbl">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Div. Pos.</th>
+          <th>Team ID</th>
+          <th>Division</th>
+          <th>Age Category</th>
+          <th>Total Score</th>
+        </tr>
+      </thead>
+      <tbody id="totaltable">
+        
+      </tbody>
+    </table>
+    <h4 align="center">Designed by Samuel Simpson</h4>
+  </body>
+</html>

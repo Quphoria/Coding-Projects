@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'> 
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript">
+      //$.ajaxSetup({ cache: false });
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(chart_onload);
+
+      var chart;
+      var options;
+      var logos;
+
+      function chart_onload() {
+        drawChart([]);
+        images = [];
+        refeshdata();
+      }
+
+      var last_data = [];
+
+      window.onresize = function(event) {
+        drawChart(last_data);
+        // displayLogos();
+      }
+
+      // function displayLogos() {
+      //   var layout = chart.getChartLayoutInterface();
+      //   $('.logo').remove();
+      //   for (var i = 0; i < logos.length; i++) {
+      //     image = logos[i];
+      //     x_pos = layout.getXLocation(0).toString();
+      //     y_pos = layout.getYLocation(i).toString();
+      //     if (image != "") {
+      //       var img = document.createElement("img");
+      //       document.getElementById("chart_area").appendChild(img);
+      //       img.src = image;
+      //       img.setAttribute("class", "logo");
+      //       img.setAttribute("style", "width:20px;height:20px;border:0;position:absolute; left:" + x_pos + "px; top:" + y_pos + "px; align:right");
+      //     }
+      //   }
+      // }
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart(chart_data) {
+        last_data = chart_data;
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Team');
+        data.addColumn('number', 'Score');
+        data.addColumn({type:'string', role:'style'});
+        data.addColumn({type:'string', role:'annotation'});
+        data.addRows(chart_data);
+        data.sort([{column: 1, desc: true}, {column: 0}]);
+
+        // Set chart options
+        options = { width: $(window).width(),
+                    height: $(window).height() * 0.75,
+                    legend: 'none',
+                    backgroundColor: { fill:'transparent' },
+                    hAxis: {
+                      title: 'Points',
+                      textStyle: {
+                        color: '#ffffff',
+                          fontSize: 20,
+                          bold: false,
+                          italic: false
+                      },
+                      titleTextStyle: {
+                        color: '#ffffff',
+                        fontSize: 24,
+                        bold: true,
+                        italic: false
+                      }
+                   },
+                  vAxis: {
+                    title: 'Team',
+                    textStyle: {
+                      color: '#ffffff',
+                      fontSize: 20,
+                      bold: false,
+                      italic: false
+                    },
+                    titleTextStyle: {
+                      color: '#ffffff',
+                      fontSize: 24,
+                      bold: true
+                    }
+                  },
+                  annotations: {
+                    stemColor : 'none',
+                    textStyle: {
+                      fontSize: 22,
+                      bold: true,
+                      italic: true,
+                    }
+                  }
+                };
+
+        // Instantiate and draw our chart, passing in some options.
+        // var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      function randomize() {
+        t1 = Math.floor(Math.random() * 25)
+        t2 = Math.floor(Math.random() * 25)
+        t3 = Math.floor(Math.random() * 25)
+        t4 = Math.floor(Math.random() * 25)
+        drawChart([
+          ['Team1', t1, "#ff0000", t1.toString()],
+          ['Team2', t2, "#00ff00", t2.toString()],
+          ['Team3', t3, "#0000ff", t3.toString()],
+          ['Team4', t4, "#00ffff", t4.toString()],
+        ])
+      }
+
+      function refeshdata() {
+        // var xmlhttp = new XMLHttpRequest();
+        // xmlhttp.onreadystatechange = function() {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         document.getElementById("txtHint").innerHTML = this.responseText;
+        //     }
+        // };
+        // xmlhttp.open("GET", "scores.xml", true);
+
+        $.ajax({
+          url: 'scores.xml',
+          dataType: 'xml',
+          //cache: false,
+          success: function (xml) {
+            var chart_data = [];
+            // var image_data = [];
+            $('row', xml).each(function () {
+              var name = $('name', this).text();
+              var value = parseInt($('value', this).text());
+              var color = $('color', this).text();
+              chart_data.push([name, value, color, value.toString()]);
+              // image_data.push($('logo', this).text());
+            });
+            last_data = chart_data;
+            // logos = image_data;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Team');
+            data.addColumn('number', 'Score');
+            data.addColumn({type:'string', role:'style'});
+            data.addColumn({type:'string', role:'annotation'});
+            data.addRows(chart_data);
+            data.sort([{column: 1, desc: true}, {column: 0}]);
+            chart.draw(data, options);
+
+            // displayLogos();
+          }
+        });
+
+        setTimeout(refeshdata, 2000); // Use 60000 for one minute
+      }
+    </script>
+  </head>
+
+  <body style="overflow:hidden; height:100%; width:100%; background-color:#333333; color:white">
+    <div id="title_div" style="text-align:center">
+      <img src="banner.png" style="object-fit: contain; max-width: 94vw; max-height: 19vh; padding-top:3vh; padding-bottom:3vh; padding-right:3vw; padding-left:3vw"/>
+    </div>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_area" style="position:relative">
+      <div id="chart_div" style="height:75%; width:100%;">Loading Graph...</div>
+      <div id="logos" style="position:absolute; left:0px; right:0px"></div>
+    </div>
+  </body>
+</html>

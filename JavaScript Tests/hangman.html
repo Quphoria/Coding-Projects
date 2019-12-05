@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HangBruh</title>
+</head>
+<h1>HangBruh</h1>
+<img id="noose" src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png" /><br />
+<h2><span id="word">Please enable javascript.</span></h2><br />
+<span id="guessed"></span><br />
+<span id="msgbox"></span><br />
+<input type="text" id="input" maxlength="1" pattern="[A-Za-z]" onsubmit="submit_letter()" value="">
+<button type="button" onclick="submit_letter()">Submit</button>
+<script type="text/javascript">
+  // List of images
+  images = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png",
+    "https://upload.wikimedia.org/wikipedia/commons/3/30/Hangman-1.png",
+    "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png",
+    "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png",
+    "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png",
+    "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png",
+    "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png"
+  ];
+  // List of words
+  wordlist = ["Bacon", "Eggs", "Toast", "Discord", "Steam", "Minecraft", "JavaScript", "Hangman"];
+  // Pick a random word
+  word = wordlist[Math.floor(Math.random() * wordlist.length)];
+  // Replace letters with - so symbols and spaces are retained
+  outputword = word.replace(/[A-Za-z]/g, "-");
+  // Array of guessed letters
+  guessed_letters = [];
+  // Update the output word
+  document.getElementById("word").innerHTML = outputword;
+  // Set tries to 0 and set gameover to false
+  tries = 0;
+  gameover = false;
+
+  // Handle enter for input box as if the button was clicked
+  document.getElementById("input").addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      submit_letter();
+    }
+  });
+
+  // Parse a letter
+  function submit_letter() {
+    // Get the letter and clear the box
+    letter = document.getElementById("input").value.toLowerCase();
+    document.getElementById("input").value = "";
+    // Make sure the letter has not already been guessed and the game is active
+    if (!guessed_letters.includes(letter) && !gameover) {
+      // Record the letter so it can't be used again
+      guessed_letters.push(letter);
+      document.getElementById("guessed").innerHTML += letter + " ";
+      // Loop through letters in word
+      valid = false;
+      for (var i = 0; i < word.length; i++) {
+        // Check if letter is in the word
+        if (letter == word[i].toLowerCase()) {
+          // Replace - with the letter, by copying from word so the case is the same
+          outputword = outputword.substring(0, i) + word[i] + outputword.substring(i + 1);
+          // Mark the letter valid
+          valid = true;
+        }
+      }
+      // Update the output word
+      document.getElementById("word").innerHTML = outputword;
+      // Check if word is finished
+      if (word == outputword) {
+        // End the game, and show a message
+        gameover = true;
+        document.getElementById("msgbox").innerHTML = "You Win.";
+      }
+      // Check if the letter is valid
+      if (!valid) {
+        // Add a try
+        tries += 1;
+        // Update the image
+        document.getElementById("noose").src = images[tries];
+        // Check if the player has run out of tries
+        if (tries >= images.length - 1) {
+          // End the game, and show a message
+          gameover = true;
+          document.getElementById("msgbox").innerHTML = "Game Over. The word was: " + word;
+        }
+      }
+    }
+  }
+</script>
+
+</html>

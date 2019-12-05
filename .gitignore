@@ -8,5 +8,11 @@ PythonJS-master/*
 *.db
 Private/*
 chatserver_v3/*
+chatserver_v5/*
 PiChat/*
 Form_Handler/*
+YE_Website/GenUsers/*
+Cloud Datastore/service_secret.json
+SecureNet/*
+YE_Website/*
+*__pycache__/

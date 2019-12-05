@@ -1,0 +1,5 @@
+Ensure the SetPerms.sh file permissions are set to 771
+(chmod 771 SetPerms.sh)
+Run the SetPerms.sh file to set all file permissions
+(./SetPerms.sh)
+Otherwise the service will not run.

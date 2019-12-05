@@ -1,0 +1,22 @@
+<rows>
+    <row>
+        <name>Team 1</name>
+        <value>3</value>
+        <color>#aa22ff</color>
+    </row>
+    <row>
+        <name>Team 2</name>
+        <value>1</value>
+        <color>#00bbbb</color>
+    </row>
+    <row>
+        <name>Team 3</name>
+        <value>4</value>
+        <color>#00cc00</color>
+    </row>
+    <row>
+        <name>Team 4</name>
+        <value>2</value>
+        <color>#ffaa00</color>
+    </row>
+</rows>
