@@ -7,5 +7,5 @@ pycryptodomex==3.4.7
 pyscrypt==1.6.2
 PyYAML==5.1
 pyzmq==17.0.0
-requests==2.14.2
+requests==2.20.0
 virtualenv==15.1.0
