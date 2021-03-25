@@ -5,7 +5,7 @@ ecdsa==0.13.3
 grequests==0.3.0
 pycryptodomex==3.4.7
 pyscrypt==1.6.2
-PyYAML==5.1
+PyYAML==5.4
 pyzmq==17.0.0
 requests==2.22.0
 virtualenv==15.1.0
