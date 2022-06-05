@@ -8,7 +8,7 @@ pip==21.1
 pyasn1==0.4.5
 pyasn1-modules==0.2.5
 requests==2.22.0
-rsa==4.1
+rsa==4.7
 setuptools==40.6.2
 six==1.12.0
 urllib3==1.26.5
